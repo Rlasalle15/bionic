@@ -43,3 +43,10 @@ END(sqrt)
     .weak       sqrtl
     .equ        sqrtl, sqrt
 #endif
+
+ENTRY(sqrtf)
+    vmov.f32    s0, r0
+    vsqrt.f32   s0, s0
+    vmov.f32    r0, s0
+    bx          lr
+END(sqrtf)

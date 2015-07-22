@@ -68,12 +68,13 @@ C6  = -1.13596475577881948265e-11; /* 0xBDA8FAE9, 0xBE8838D4 */
 double
 __kernel_cos(double x, double y)
 {
-	double hz,z,r,w;
+	double hz,z,zz,r,w,k;
 
 	z  = x*x;
-	w  = z*z;
-	r  = z*(C1+z*(C2+z*C3)) + w*w*(C4+z*(C5+z*C6));
-	hz = 0.5*z;
+	zz = z*z;
+	k = x*y;
+	hz = (float)0.5*z;
+	r  = z*(z*(C1+z*(C2+z*((C3+z*C4)+zz*(C5+z*C6)))));
 	w  = one-hz;
-	return w + (((one-w)-hz) + (z*r-x*y));
+	return w + (((one-w)-hz) + (r-k));
 }
